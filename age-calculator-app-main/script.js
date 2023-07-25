@@ -72,22 +72,97 @@ input_year.addEventListener("input", (e) => {
 });
 
 function CalculateDate() {
-  if (isValid) {
-    let birthday = `${input_month.value}/${input_day.value}/${input_year.value}`;
-    console.log(birthday);
-    let birthdayObj = new Date(birthday).getTime();
-    console.log(birthdayObj)
-    let ageDiffMill = Date.now() - birthdayObj;
 
-    let ageDate = new Date(ageDiffMill);
-    let ageYears = ageDate.getUTCFullYear() - 1970;
-    let ageMonth = ageDate.getUTCMonth();
-    let ageDay = ageDate.getUTCDay();
-    // DISPLAYING EVERYTHING
-    output_day.textContent = ageDay;
+  if (isValid) {
+    //----------------todaysyear(currentyear)---------
+    let today_year = new Date().getFullYear();
+    let today_month = new Date().getMonth() + 1;
+    let today_Date = new Date().getDate();
+
+
+    // ------------birthday_year----------------
+    let birthday_year = `${input_year.value}`
+    let birthday_month = `${input_month.value}`
+    let birthday_day = `${input_day.value}`
+
+    //---ageyear
+
+    // calculate exact year gap
+    var years;
+    if (today_month > birthday_month ||
+      (today_month == birthday_month &&
+        today_Date >= birthday_day
+      )
+    ) {
+      years = today_year - birthday_year;
+    }
+    else {
+      years = today_year - birthday_year - 1;
+    }
+
+    // let ageYears = today_year - birthday_year;
+
+    //---agemonth
+    let ageMonth;
+    if (today_month > birthday_month) {
+
+      ageMonth = today_month - birthday_month
+    }
+    else {
+      ageMonth = 12 + today_month - birthday_month;
+
+    }
+    //if month is equal improve age and month to zero
+    if (birthday_month == today_month) {
+
+      ageMonth = 0
+    }
+
+    // ----ageday
+
+    let months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    let ageday;
+
+    // if(birthday_day == today_Date){
+
+    //   ageday = 0;
+    // }
+
+    if (today_Date >= birthday_day) {
+
+      ageday = today_Date - birthday_day;
+
+
+    } else {
+      ageday = today_Date - birthday_day + months[birthday_month - 1]
+    }
+
+
+    ///----
+    //display
+
+    output_year.textContent = years;
     output_month.textContent = ageMonth;
-    output_year.textContent = ageYears;
-  } else {
+    output_day.textContent = ageday;
+
+
+
+
+  }
+  //   console.log(birthday);
+  //   let birthdayObj = new Date(birthday).getTime();
+  //   console.log(birthdayObj)
+  //   let ageDiffMill = Date.now() - birthdayObj;
+
+  //   let ageDate = new Date(ageDiffMill);
+  //   let ageYears = ageDate.getUTCFullYear() - 1970;
+  //   let ageMonth = ageDate.getUTCMonth();
+  //   let ageDay = ageDate.getUTCDay();
+  //   // DISPLAYING EVERYTHING
+  //   output_day.textContent = ageDay;
+  //   output_month.textContent = ageMonth;
+  else {
     alert("error");
   }
 }
