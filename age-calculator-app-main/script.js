@@ -113,10 +113,7 @@ function CalculateDate() {
 
     }
     //if month is equal improve age and month to zero
-    if (birthday_month == today_month) {
-
-      ageMonth = 0
-    }
+   
 
     // ----ageday
 
